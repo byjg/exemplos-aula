@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dever de casa</title>
+    <style>
+        #alerta, #alerta2{
+            background-color: red;
+            color: aliceblue;
+            width: fit-content;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .pg1{
+            display: block;
+        }
+        .pg2{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="pg1" id="pag1">
+    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Email: <input id="Email" type="text" name="Email" placeholder="Digite o emai" /><br/>
+    <input type="button" value="Avancar" onclick="avancar()"/>
+</div>
+
+<div id="alerta" >Existem campos nao preenchidos </div>
+
+<div class="pg2" id="pag2">
+    Rua: <input id="Rua" type="text" name="Rua" placeholder="Digite a rua" /><br/>
+    Numero: <input id="Numero" type="number" name="Numero" placeholder="Digite o numero" /><br/>
+    CEP: <input id="CEP" type="number" name="CEP" placeholder="Digite o CEP" /><br/>
+    Estado: <input id="Estado" type="text" name="Estado" placeholder="Digite o estado" /><br/>
+    <input type="button" value="Voltar" onclick="voltar()"/>
+    <input type="button" value="Finalizar" onclick="finalizar()"/>
+</div>
+
+<div id="alerta2" >Existem campos nao preenchidos </div>
+
+<script type="text/javascript"> {
+
+    var resultado=[
+        '#Nome',
+        '#Email',
+        "#Rua",
+        "#Numero",
+        "#CEP",
+        "#Estado"
+    ];
+
+    function avancar() {
+        var vazio=false;
+        var aviso = document.querySelector("#alerta");
+        var mudapg1 = document.querySelector(".pg1");
+        var mudapg2 = document.querySelector(".pg2");
+        for (var i=0; i<2;i++) {
+            var entra = document.querySelector(resultado[i]);
+            if(entra.value===""){
+                vazio=true;
+            }
+        }
+        if(vazio){
+            alerta.style.display= "block";
+        }
+        else{
+            alerta.style.display="none";
+            mudapg1.style.display="none";
+            mudapg2.style.display="block";
+        }
+    }
+
+    function voltar() {
+        var vazio=false;
+        var alerte = document.querySelector("#alerta2");
+        var mudapg1 = document.querySelector(".pg1");
+        var mudapg2 = document.querySelector(".pg2");
+        for (var i=2; i<6;i++) {
+            var entra = document.querySelector(resultado[i]);
+            if(entra.value===""){
+                vazio=true;
+            }
+        }
+        if(vazio){
+            alerta2.style.display= "block";
+        }
+        else{
+            alerta2.style.display="none";
+            mudapg1.style.display="block";
+            mudapg2.style.display="none";
+        }
+    }
+
+    function finalizar(){
+        var mostra=[
+            Nome.value,
+            Email.value,
+            Rua.value,
+            Numero.value,
+            CEP.value,
+            Estado.value
+        ];
+        alert(mostra);
+    }
+}
+</script>
+
+</body>
+</html>

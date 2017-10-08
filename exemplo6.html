@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularios 2</title>
+    <style>
+        .erro {
+            background-color: lightsalmon;
+            border-color: red;
+        }
+        #alerta{
+            background-color: red;
+            color: aliceblue;
+            width: fit-content;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="alerta" >Existem campos nao preenchidos </div>
+
+<div>
+    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Idade: <input id="idade" type="number" name="Idade" placeholder="Digite a idade" /><br/>
+    Nome: <input id="Nome1" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Nome: <input id="Nome2" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Nome: <input id="Nome3" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Nome: <input id="Nome4" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Nome: <input id="Nome5" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+</div>
+
+<div>
+    Sexo: <br/>
+    <input type="radio" name="sexo" value="masculino" /> Masculino<br/>
+    <input type="radio" name="sexo" value="feminino" /> Feminino<br/>
+</div>
+
+<div>
+    Estuda: <br/>
+    <input type="radio" name="estuda" value="sim" /> Sim<br/>
+    <input type="radio" name="estuda" value="nao" /> Nao<br/>
+</div>
+
+<div>
+    Generos Musicais: <br/>
+    <input type="checkbox" name="genmus" value="rock" /> Rock<br/>
+    <input type="checkbox" name="genmus" value="pop" /> Pop<br/>
+    <input type="checkbox" name="genmus" value="folk" /> Folk<br/>
+    <input type="checkbox" name="genmus" value="country" /> Country<br/>
+    <input type="checkbox" name="genmus" value="trash" /> Trash<br/>
+</div>
+
+
+<input type="button" value="Clique-me" onclick="exercicio1()"/>
+
+<script type="text/javascript">
+
+    function exercicio1() {
+
+        // Criando um array com os IDs dos elementos
+        var teste = [
+            '#Nome',
+            '#idade',
+            '#Nome1',
+            '#Nome2',
+            '#Nome3',
+            '#Nome4',
+            '#Nome5'
+        ];
+
+        // Variavel para registrar se algum elemento deu erro de validaçao ou nao
+        var deuErro = false;
+
+        // DOMElement da caixa de alerta em caso de erro
+        var alerta=document.querySelector('#alerta');
+
+        // Iteraçao para verificar se cada elemento do array "teste" esta preenchido ou nao
+        for (var i=0;i<teste.length;i++)
+        {
+            var input = document.querySelector(teste[i]);
+
+            // Se nao tiver preenchido atribui a classe erro que ira fazer um destaque
+            if(input.value===""){
+                input.className="erro";
+                deuErro=true;
+            }
+            // Caso contrario remove a classe Erro
+            else{
+                input.className="";
+            }
+        }
+
+        // Caso erro "deuErro" seja true entao mostra o DOMElement "alerta"
+        if(!deuErro){
+            alerta.style.display= "none";
+        }
+        else{
+            alerta.style.display="block";
+        }
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+h1 {
+    color: #63ff3e;
+    font-style: italic;
+
+}
+
+.paragrafo {
+    margin-bottom: 20px;
+}
+
+.bloco {
+    background-color: silver;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.outro {
+    color: red;
+}
+
+#alerta {
+    background-color: yellow;
+}
+
+#alerta .bla {
+    font-weight: bolder;
+}

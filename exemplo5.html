@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularios 1</title>
+    <style>
+        .erro {
+            background-color: lightsalmon;
+            border-color: red;
+        }
+        #alerta{
+            background-color: red;
+            color: aliceblue;
+            width: fit-content;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="alerta" >Existem campos nao preenchidos </div>
+
+<div>
+    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Idade: <input id="idade" type="number" name="Idade" placeholder="Digite a idade" /><br/>
+</div>
+
+<div>
+    Sexo: <br/>
+    <input type="radio" name="sexo" value="masculino" /> Masculino<br/>
+    <input type="radio" name="sexo" value="feminino" /> Feminino<br/>
+</div>
+
+<div>
+    Estuda: <br/>
+    <input type="radio" name="estuda" value="sim" /> Sim<br/>
+    <input type="radio" name="estuda" value="nao" /> Nao<br/>
+</div>
+
+<div>
+    Generos Musicais: <br/>
+    <input type="checkbox" name="genmus" value="rock" /> Rock<br/>
+    <input type="checkbox" name="genmus" value="pop" /> Pop<br/>
+    <input type="checkbox" name="genmus" value="folk" /> Folk<br/>
+    <input type="checkbox" name="genmus" value="country" /> Country<br/>
+    <input type="checkbox" name="genmus" value="trash" /> Trash<br/>
+</div>
+
+
+<input type="button" value="Clique-me" onclick="exercicio1()"/>
+
+<script type="text/javascript">
+
+    function exercicio1() {
+        var nome=document.querySelector('#Nome');
+        var idade=document.querySelector('#idade');
+        var deuErro = false;
+        var alerta=document.querySelector('#alerta');
+        if (nome.value===""){
+            nome.className="erro";
+            deuErro = true;
+        }
+        else {
+            nome.className="";
+        }
+        if (idade.value===""){
+            idade.className="erro";
+            deuErro = true;
+        }
+        else {
+            idade.className="";
+        }
+        if(!deuErro){
+            alerta.style.display= "none";
+        }
+        else{
+            alerta.style.display="block";
+        }
+    }
+</script>
+
+
+</body>
+</html>

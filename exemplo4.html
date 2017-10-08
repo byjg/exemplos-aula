@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste 4</title>
+    <link rel="stylesheet" href="exemplo4.css" />
+</head>
+<body>
+
+<pre>
+DOM = Document Object Model
+
+h1
+h2
+div
+ |
+ +- span
+div
+div
+div
+ |
+ +- ln1
+ +- ln2
+
+ecma 6
+
+</pre>
+
+<h1>W3C Consortium -- HTML5</h1>
+
+<h2>Titulo 2</h2>
+
+<div id="alerta" class="bloco">BLOCO COM BG E COM MARGEM DIFERENTE <span class="bla">SEE 1234</span></div>
+<a href="#" onclick="mostrarAlerta('#alerta', this)">Show</a>
+
+<div id="alerta2" class="bloco">BLOCO COM BG E COM MARGEM DIFERENTE <span class="bla">SEE 1234</span></div>
+<a href="#" onclick="mostrarAlerta('#alerta2', this)">Show</a>
+
+
+<div class="paragrafo outro">
+    HACK<br/>
+    POLYFILL
+</div>
+
+<div class="paragrafo bloco">
+    HACK<br/>
+    POLYFILL
+</div>
+
+<div class="paragrafo">
+    <div class="ln1">HACK</div>
+    <div class="ln2">POLYFILL</div>
+</div>
+
+<script type="application/javascript">
+    function calcular(n1, n2) {
+        return n1 + n2;
+    }
+
+    console.log(calcular(10, 20));
+    console.log(calcular(40, 50));
+
+
+    function mostrarAlerta(quemVouMexer, domQuemMeClicou) {
+        var n1 = document.querySelector(quemVouMexer);
+        if (n1.style.display === "block") {
+            n1.style.display = "none";
+            domQuemMeClicou.innerHTML = "Mostrar";
+        } else {
+            n1.style.display = "block";
+            domQuemMeClicou.innerHTML = "Esconder";
+        }
+    }
+</script>
+
+
+
+Classe
+
+Objeto ou Instancia
+
+
+</body>
+</html>

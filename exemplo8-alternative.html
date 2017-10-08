@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dever de casa</title>
+    <style>
+        #alerta {
+            background-color: red;
+            color: aliceblue;
+            width: fit-content;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        #botoes {
+            display: inline-flex;
+        }
+    </style>
+</head>
+<body>
+
+<div id="pg0">
+    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" /><br/>
+    Email: <input id="Email" type="text" name="Email" placeholder="Digite o emai" /><br/>
+</div>
+
+<div id="pg1">
+    Rua: <input id="Rua" type="text" name="Rua" placeholder="Digite a rua" /><br/>
+    Numero: <input id="Numero" type="number" name="Numero" placeholder="Digite o numero" /><br/>
+    CEP: <input id="CEP" type="number" name="CEP" placeholder="Digite o CEP" /><br/>
+    Estado: <input id="Estado" type="text" name="Estado" placeholder="Digite o estado" /><br/>
+</div>
+
+<div id="pg2">
+    Twitter: <input id="twitter" type="text" name="Twitter" placeholder="Digite o twitter" /><br/>
+    FB: <input id="facebook" type="text" name="Facebook" placeholder="Digite o facebook" /><br/>
+</div>
+
+
+<div id="pg3">Aqui entra o resultado</div>
+
+<div id="botoes">
+    <input id="voltar" type="button" value="Voltar" onclick="voltar()"/>
+    <input id="avancar" type="button" value="Avancar" onclick="avancar()"/>
+</div>
+
+<div id="alerta" >Existem campos nao preenchidos </div>
+
+<script type="text/javascript"> {
+
+    var resultado = [
+        {
+            '#Nome': null,
+            '#Email': null
+        },
+        {
+            "#Rua": null,
+            "#Numero": null,
+            "#CEP": null,
+            "#Estado": null
+        },
+        {
+            '#twitter': null,
+            '#facebook':null
+        }
+    ];
+
+    var pagina = 0;
+    var maxPages = resultado.length;
+    mostrarElementos();
+
+    function mostrarElementos() {
+        document.querySelector('#alerta').style.display = "none";
+
+        document.querySelector('#pg0').style.display = "none";
+        document.querySelector('#pg1').style.display = "none";
+        document.querySelector('#pg2').style.display = "none";
+        document.querySelector('#pg3').style.display = "none";
+        document.querySelector('#pg' + pagina).style.display = "block";
+
+        document.querySelector('#voltar').style.display = (pagina > 0 ? 'block' : 'none');
+        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block')
+        document.querySelector('#avancar').value = (pagina === maxPages -1  ? 'Concluir' : 'Avançar');
+    }
+
+    function verificarPagina(num) {
+        document.querySelector('#alerta').style.display = "none";
+        for (els in resultado[num]) {
+            resultado[num][els] = document.querySelector(els).value;
+            if (!document.querySelector(els).value) {
+                document.querySelector('#alerta').style.display = "block";
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function avancar() {
+        if (!verificarPagina(pagina)) {
+            return;
+        }
+
+        pagina = pagina + 1;
+        if (pagina === maxPages) {
+            finalizar();
+        }
+        mostrarElementos();
+    }
+
+    function voltar() {
+        pagina = pagina - 1;
+        mostrarElementos();
+    }
+
+    function finalizar(){
+        var strResultado = "";
+
+        for (var i=0; i<maxPages; i++) {
+            for(keys in resultado[i]){
+                strResultado = strResultado + keys + ": " + resultado[i][keys] + "<br/>";
+            }
+        }
+        document.querySelector('#pg' + pagina).innerHTML = strResultado;
+    }
+}
+</script>
+
+</body>
+</html>
