@@ -1,64 +1,166 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Exercicios</title>
+    <title>Dever de casa</title>
+    <style>
+        #alerta {
+            background-color: red;
+            color: aliceblue;
+            width: fit-content;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        #botoes {
+            display: inline-flex;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Exerc&iacute;cio 1</h1>
+<div id="pg0">
+    Nome: <input id="Nome" type="text" required pattern="[A-z\S]+$" name="Nome" placeholder="Digite o nome" title="Nomes aceitam apenas letras"/><br/>
+    Email: <input id="Email" type="email" required pattern=“[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$” name="Email" placeholder="Digite o emai" title="Digite seu email corretamente" /><br/>
+</div>
 
-<pre>
-    Modificar o exemplo8-alternative.html para que ele possa validar antes de estar preenchido os seguintes dados:
+<div id="pg1">
+    Rua: <input id="Rua" type="text" required pattern="[A-z\s]+$" name="Rua" placeholder="Digite a rua" title="Digite sua rua corretamente"/><br/>
+    Numero: <input id="text" type="number" required pattern="[0-9]+$" name="Numero" placeholder="Digite o numero" title="Digite apenas numeros"/><br/>
+    CEP: <input id="CEP" type="text" required pattern="[0-9]{5}\-[0-9]{3}" maxlength="8" name="CEP" placeholder="Digite o CEP" title="Digite CEP no padrão correto"/><br/>
+    Estado: <input id="Estado" type="text" required pattern="[A-Z\S]+$" maxlength="2" name="Estado" placeholder="Digite o estado" title="Digite apenas a sua UF"/><br/>
+</div>
 
-    - Todos os dados obrigatorios
-    - Tipo (por exemplo, string, cep, numero, email, estado ou URL)
+<div id="pg2">
+    Twitter: <input id="twitter" type="url" required name="Twitter" placeholder="Digite o twitter" title="Digite a url do seu Twitter"/><br/>
+    FB: <input id="facebook" type="url" required name="Facebook" placeholder="Digite o facebook" title="Digite a url do seu Fecebook"/><br/>
+</div>
 
-    No resultado ao inves de mostrar o label com as tralhas mostrar um label customizado para cada elemento.
 
-    Hoje esta assim:
+<div id="pg3">Aqui entra o resultado</div>
 
-    #Nome: kjshd
-    #Email: kj
-    #Rua: kjh
-    #Numero: 78
-    #CEP: 876
-    #Estado: ba
-    #twitter: jhgjh
-    #facebook: kjhkjh
+<div id="botoes">
+    <input id="voltar" type="button" value="Voltar" onclick="voltar()"/>
+    <input id="avancar" type="button" value="Avancar" onclick="avancar()"/>
+</div>
 
-    Deveria ficar algo assim:
+<div id="alerta" >Existem campos nao preenchidos </div>
 
-    Nome do cliente: kjshd
-    Email casa: kj
-    Endereco: kjh
-    Numero 78
-    CEP: 876
-    Estado: ba
-    Twitter pessoal: jhgjh
-    Facebook pessoal: kjhkjh
+<script type="text/javascript"> {
 
-    Dica -> Começar mexendo no OBJETO "resultado" para suportar esses novos elementos.
-</pre>
+    function resultado2(preenche,frase) = {
+        preenche[
+            '#Nome',
+            '#Email',
+            "#Rua",
+            "#Numero",
+            "#CEP",
+            "#Estado",
+            '#twitter',
+            '#facebook'
+        ];
+        frase[
+            "Nome do Cliente",
+            "Email do cliente",
+            "Logradouro",
+            "Numero da casa",
+            "Cep da Rua",
+            "Unidade Federativa",
+            "Conta no Twitter",
+            "Conta no Facebook"
+        ];
+    };
 
-<h1>Exercicio 2</h1>
+    var resultado = [
+        {
+            '#Nome': null,
+            '#Email': null
+        },
+        {
+            "#Rua": null,
+            "#Numero": null,
+            "#CEP": null,
+            "#Estado": null
+        },
+        {
+            '#twitter': null,
+            '#facebook':null
+        }
+    ];
 
-<pre>
-    Fazer com que a vari&aacute;vel resultado seja preenchida automaticamente de acordo com o HTML que foi definido.
 
-    Dica. Comece assim:
+    var pagina = 0;
+    var maxPages = resultado.length;
+    mostrarElementos();
 
-    var resultado = [];
-    function inicializar() {
-        //...
+    function mostrarElementos() {
+        document.querySelector('#alerta').style.display = "none";
+
+        document.querySelector('#pg0').style.display = "none";
+        document.querySelector('#pg1').style.display = "none";
+        document.querySelector('#pg2').style.display = "none";
+        document.querySelector('#pg3').style.display = "none";
+        document.querySelector('#pg' + pagina).style.display = "block";
+
+        document.querySelector('#voltar').style.display = (pagina > 0 ? 'block' : 'none');
+        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block')
+        document.querySelector('#avancar').value = (pagina === maxPages -1  ? 'Concluir' : 'Avançar');
     }
 
-    Dica 2: Voce pode criar atributos que nao existem no HTML dentro do seu elemento. Por exemplo:
+    function verificarPagina(num) {
+        document.querySelector('#alerta').style.display = "none";
+        for (els in resultado[num]) {
+            resultado[num][els] = document.querySelector(els).value;
+            if (!document.querySelector(els).value) {
+                document.querySelector('#alerta').style.display = "block";
+                return false;
+            }
+        }
+        return true;
+    }
+    /*function verificarPagina2(num) {
+        document.querySelector('#alerta').style.display = "none";
+        document.querySelector('#alerta').style.display = (Nome.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (Email.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (Rua.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (Numero.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (CEP.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (Estado.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (Twitter.required===false ? 'block' : 'none');
+        document.querySelector('#alerta').style.display = (Facebook.required===false ? 'block' : 'none');
+        //da erro, fazer em um for.
 
-    &lt;input type="text" meu-atributo="aqui" /&gt;
-</pre>
+    }*/
 
-OBS: Voces devem criar o arquivo "exemplo9-SEUNOME-exercicio1.html" e "exemplo9-SEUNOME-exercicio2.html"
+    function avancar() {
+        if (!verificarPagina(pagina)) {
+            return;
+        }
+
+        pagina = pagina + 1;
+        if (pagina === maxPages) {
+            finalizar();
+        }
+        mostrarElementos();
+    }
+
+    function voltar() {
+        pagina = pagina - 1;
+        mostrarElementos();
+    }
+
+    function finalizar(){
+        var strResultado = "";
+
+        for (var i=0; i<maxPages; i++) {
+            for(keys in resultado[i]){
+                strResultado = strResultado + keys + ": " + resultado[i][keys] + "<br/>";
+            }
+        }
+        document.querySelector('#pg' + pagina).innerHTML = strResultado;
+    }
+}
+</script>
 
 </body>
 </html>
