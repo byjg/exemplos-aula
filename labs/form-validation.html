@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>teste</title>
+    <!--<script src="https://unpkg.com/yaj/yaj.min.js"></script>-->
+</head>
+<body>
+
+<form name="cadastro" id="cadastro" >
+    <input type="email" required name="seuemail"/>
+    <input type="text" required pattern="^[A-Z]{2}$" title="O Estado deve ter letras maíusculas" maxlength="2" name="uf"/>
+
+    <input type="submit" value="voltar" onclick="voltar()"/>
+    <input type="submit" value="avancar" onclick="avancar()"/>
+</form>
+
+<script>
+    var currentPage = 0;
+    var currentAction = null;
+
+    function voltar() {
+        currentAction = -1;
+    }
+
+    function avancar() {
+        currentAction = 1;
+    }
+
+    function myFunction(e) {
+        e.preventDefault();
+        console.log(e);
+        alert("The form was submitted " + currentAction);
+    }
+
+    document.addEventListener('submit', myFunction);
+</script>
+
+
+</body>
+</html>

@@ -20,12 +20,12 @@
 <body>
 
 <div id="pg0">
-    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" /><br/>
-    Email: <input id="Email" type="text" name="Email" placeholder="Digite o emai" /><br/>
+    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" data-controled="true" data-required="true" data-page="0" data-title="Seu nome" data-pattern="" /><br/>
+    Email: <input id="Email" type="text" name="Email" placeholder="Digite o email"  data-controled="true" data-required="true" data-page="0" data-title="Email casa" data-pattern=""  /><br/>
 </div>
 
 <div id="pg1">
-    Rua: <input id="Rua" type="text" name="Rua" placeholder="Digite a rua" /><br/>
+    Rua: <input id="Rua" type="text" name="Rua" placeholder="Digite a rua"  data-controled="true" data-required="true" data-page="1" data-title="Seu nome" data-pattern="" /><br/>
     Numero: <input id="Numero" type="number" name="Numero" placeholder="Digite o numero" /><br/>
     CEP: <input id="CEP" type="number" name="CEP" placeholder="Digite o CEP" /><br/>
     Estado: <input id="Estado" type="text" name="Estado" placeholder="Digite o estado" /><br/>
@@ -46,24 +46,24 @@
 
 <div id="alerta" >Existem campos nao preenchidos </div>
 
-<script type="text/javascript"> {
+<script type="text/javascript">
 
-    var resultado = [
-        {
-            '#Nome': null,
-            '#Email': null
-        },
-        {
-            "#Rua": null,
-            "#Numero": null,
-            "#CEP": null,
-            "#Estado": null
-        },
-        {
-            '#twitter': null,
-            '#facebook':null
+    var todosInputs = document.querySelectorAll('input[data-controled="true"]');
+
+    var resultado = [];
+    for (var i=0; i<todosInputs.length; i++) {
+        var input = todosInputs[i];
+        var page = parseInt(input.getAttribute('data-page'));
+        if (!resultado[page]) {
+            resultado[page] = {};
         }
-    ];
+        resultado[page]['#' + input.getAttribute('id')] = {
+            title: input.getAttribute('data-title'),
+            value: input.value,
+            required: (input.getAttribute('data-required') == "true" ? true : false),
+            pattern: null
+        }
+    }
 
     var pagina = 0;
     var maxPages = resultado.length;
@@ -79,20 +79,34 @@
         document.querySelector('#pg' + pagina).style.display = "block";
 
         document.querySelector('#voltar').style.display = (pagina > 0 ? 'block' : 'none');
-        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block');
+        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block')
         document.querySelector('#avancar').value = (pagina === maxPages -1  ? 'Concluir' : 'Avançar');
     }
 
     function verificarPagina(num) {
+        document.querySelector('#alerta').innerHTML = "";
         document.querySelector('#alerta').style.display = "none";
+        var ok = true;
         for (selector in resultado[num]) {
-            resultado[num][selector] = document.querySelector(selector).value;
-            if (!document.querySelector(selector).value) {
+            var item = resultado[num][selector];
+            item.value = document.querySelector(selector).value;
+            if (!item.value && item.required) {
                 document.querySelector('#alerta').style.display = "block";
-                return false;
+                document.querySelector('#alerta').innerHTML += item.title + ' é obrigatório.<br/>';
+                ok = false;
+            }
+            if (!item.value) {
+                continue;
+            }
+
+            if (item.pattern) {
+                if (!item.value.match(item.pattern)) {
+                    document.querySelector('#alerta').innerHTML += item.title + ' não bate com o padrão.<br/>';
+                    ok = false;
+                }
             }
         }
-        return true;
+        return ok;
     }
 
     function avancar() {
@@ -116,13 +130,13 @@
         var strResultado = "";
 
         for (var i=0; i<maxPages; i++) {
-            for(selector in resultado[i]){
-                strResultado = strResultado + selector + ": " + resultado[i][selector] + "<br/>";
+            for(var selector in resultado[i]){
+                var item = resultado[i][selector];
+                strResultado = strResultado + item.title + ": " + item.value + "<br/>";
             }
         }
         document.querySelector('#pg' + pagina).innerHTML = strResultado;
     }
-}
 </script>
 
 </body>

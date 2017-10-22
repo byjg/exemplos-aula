@@ -19,57 +19,54 @@
 </head>
 <body>
 
-<div id="pg0">
-    Nome: <input id="Nome" type="text" required pattern="[A-z\S]+$" name="Nome" placeholder="Digite o nome" title="Nomes aceitam apenas letras"/><br/>
-    Email: <input id="Email" type="email" required pattern=“[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$” name="Email" placeholder="Digite o emai" title="Digite seu email corretamente" /><br/>
-</div>
+<form id="cadastro">
+    <div id="pg0">
+        Nome: <input id="Nome" type="text" required pattern="[A-z\S]+$" name="Nome" placeholder="Digite o nome" title="Nomes aceitam apenas letras"/><br/>
+        Email: <input id="Email" type="email" required name="Email" placeholder="Digite o emai" title="Digite seu email corretamente" /><br/>
+    </div>
 
-<div id="pg1">
-    Rua: <input id="Rua" type="text" required pattern="[A-z\s]+$" name="Rua" placeholder="Digite a rua" title="Digite sua rua corretamente"/><br/>
-    Numero: <input id="text" type="number" required pattern="[0-9]+$" name="Numero" placeholder="Digite o numero" title="Digite apenas numeros"/><br/>
-    CEP: <input id="CEP" type="text" required pattern="[0-9]{5}\-[0-9]{3}" maxlength="8" name="CEP" placeholder="Digite o CEP" title="Digite CEP no padrão correto"/><br/>
-    Estado: <input id="Estado" type="text" required pattern="[A-Z\S]+$" maxlength="2" name="Estado" placeholder="Digite o estado" title="Digite apenas a sua UF"/><br/>
-</div>
+    <div id="pg1">
+        Rua: <input id="Rua" type="text" required pattern="[A-z\s]+$" name="Rua" placeholder="Digite a rua" title="Digite sua rua corretamente"/><br/>
+        Numero: <input id="text" type="number" required pattern="[0-9]+$" name="Numero" placeholder="Digite o numero" title="Digite apenas numeros"/><br/>
+        CEP: <input id="CEP" type="text" required pattern="[0-9]{5}\-[0-9]{3}" maxlength="8" name="CEP" placeholder="Digite o CEP" title="Digite CEP no padrão correto"/><br/>
+        Estado: <input id="Estado" type="text" required pattern="[A-Z\S]+$" maxlength="2" name="Estado" placeholder="Digite o estado" title="Digite apenas a sua UF"/><br/>
+    </div>
 
-<div id="pg2">
-    Twitter: <input id="twitter" type="url" required name="Twitter" placeholder="Digite o twitter" title="Digite a url do seu Twitter"/><br/>
-    FB: <input id="facebook" type="url" required name="Facebook" placeholder="Digite o facebook" title="Digite a url do seu Fecebook"/><br/>
-</div>
+    <div id="pg2">
+        Twitter: <input id="twitter" type="url" required name="Twitter" placeholder="Digite o twitter" title="Digite a url do seu Twitter"/><br/>
+        FB: <input id="facebook" type="url" required name="Facebook" placeholder="Digite o facebook" title="Digite a url do seu Fecebook"/><br/>
+    </div>
+
+    <div id="pg3">Aqui entra o resultado</div>
+
+    <div id="botoes">
+        <input id="voltar" type="submit" value="Voltar" onclick="voltarClick()"/>
+        <input id="avancar" type="submit" value="Avancar" onclick="avancarClick()"/>
+    </div>
+
+    <div id="alerta" >Existem campos nao preenchidos </div>
+</form>
+
+<script type="text/javascript">
+
+    var currentAction = null;
+
+    document.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+    });
+
+    function voltarClick() {
+        alert('voltar');
+        currentAction = -1;
+    }
+
+    function avancarClick() {
+        alert('avancar');
+        currentAction = 1;
+    }
 
 
-<div id="pg3">Aqui entra o resultado</div>
-
-<div id="botoes">
-    <input id="voltar" type="button" value="Voltar" onclick="voltar()"/>
-    <input id="avancar" type="button" value="Avancar" onclick="avancar()"/>
-</div>
-
-<div id="alerta" >Existem campos nao preenchidos </div>
-
-<script type="text/javascript"> {
-
-    function resultado2(preenche,frase) = {
-        preenche[
-            '#Nome',
-            '#Email',
-            "#Rua",
-            "#Numero",
-            "#CEP",
-            "#Estado",
-            '#twitter',
-            '#facebook'
-        ];
-        frase[
-            "Nome do Cliente",
-            "Email do cliente",
-            "Logradouro",
-            "Numero da casa",
-            "Cep da Rua",
-            "Unidade Federativa",
-            "Conta no Twitter",
-            "Conta no Facebook"
-        ];
-    };
 
     var resultado = [
         {
@@ -103,15 +100,15 @@
         document.querySelector('#pg' + pagina).style.display = "block";
 
         document.querySelector('#voltar').style.display = (pagina > 0 ? 'block' : 'none');
-        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block')
+        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block');
         document.querySelector('#avancar').value = (pagina === maxPages -1  ? 'Concluir' : 'Avançar');
     }
 
     function verificarPagina(num) {
         document.querySelector('#alerta').style.display = "none";
-        for (els in resultado[num]) {
-            resultado[num][els] = document.querySelector(els).value;
-            if (!document.querySelector(els).value) {
+        for (selector in resultado[num]) {
+            resultado[num][selector] = document.querySelector(selector).value;
+            if (!document.querySelector(selector).value) {
                 document.querySelector('#alerta').style.display = "block";
                 return false;
             }
@@ -153,13 +150,12 @@
         var strResultado = "";
 
         for (var i=0; i<maxPages; i++) {
-            for(keys in resultado[i]){
-                strResultado = strResultado + keys + ": " + resultado[i][keys] + "<br/>";
+            for(selector in resultado[i]){
+                strResultado = strResultado + selector + ": " + resultado[i][selector] + "<br/>";
             }
         }
         document.querySelector('#pg' + pagina).innerHTML = strResultado;
     }
-}
 </script>
 
 </body>
