@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dever de casa 2.2</title>
+    <title>Dever de casa</title>
     <style>
         #alerta {
             background-color: red;
@@ -20,20 +20,15 @@
 <body>
 
 <div id="pg0">
-    Nome: <input id="Nome" type="text" name="Nome" placeholder="Digite o nome" data-controled="true" data-required="true" data-page="0" data-title="Seu nome" data-pattern="\w" /><br/>
-    Email: <input id="Email" type="text" name="Email" placeholder="Digite o email"  data-controled="true" data-required="true" data-page="0" data-title="Email casa" data-pattern="^[\w\d.-_]+@[\w\d-_]+(\.[\w\d-_]+)*$"  /><br/>
+
 </div>
 
 <div id="pg1">
-    Rua: <input id="Rua" type="text" name="Rua" placeholder="Digite a rua"  data-controled="true" data-required="true" data-page="1" data-title="Seu logradouro" data-pattern="\w" /><br/>
-    Numero: <input id="Numero" type="number" name="Numero" placeholder="Digite o numero" data-controled="true" data-required="true" data-page="1" data-title="Número " data-pattern="\d"/><br/>
-    CEP: <input id="CEP" type="text" name="CEP" placeholder="Digite o CEP" data-controled="true" data-required="true" data-page="1" data-title="Seu CEP" data-pattern="[0-9]{5}-[0-9]{3}"/><br/>
-    Estado: <input id="Estado" type="text" name="Estado" placeholder="Digite o estado" data-controled="true" data-required="true" data-page="1" data-title="Sua UF" data-pattern="[A-Z\s]{2}"/><br/>
+
 </div>
 
 <div id="pg2">
-    Twitter: <input id="twitter" type="text" name="Twitter" placeholder="Digite o twitter" data-controled="true" data-required="true" data-page="2" data-title="Seu twitter" data-pattern="^@[\w\d.-_]{1,15}$"/><br/>
-    FB: <input id="facebook" type="text" name="Facebook" placeholder="Digite o facebook" data-controled="true" data-required="true" data-page="2" data-title="Seu facebook" data-pattern=""/><br/>
+
 </div>
 
 
@@ -47,23 +42,30 @@
 <div id="alerta" >Existem campos nao preenchidos </div>
 
 <script type="text/javascript">
+    
+    function textos () {
+        //document.getElementById("pg0").innerHTML="";
+        //pg0.innerHTML = pg0.innerHTML + "Nome do Cliente :" ;
+        //pg0.appendChild(Nome)<inputtype = 'text' name = 'Nome' id='Nome/>';
 
-    var todosInputs = document.querySelectorAll('input[data-controled="true"]');
-
-    var resultado = [];
-    for (var i=0; i<todosInputs.length; i++) {
-        var input = todosInputs[i];
-        var page = parseInt(input.getAttribute('data-page'));
-        if (!resultado[page]) {
-            resultado[page] = {};
-        }
-        resultado[page]['#' + input.getAttribute('id')] = {
-            title: input.getAttribute('data-title'),
-            value: input.value,
-            required: (input.getAttribute('data-required') == "true" ? true : false),
-            pattern: input.getAttribute('data-pattern')
-        }
     }
+
+    var resultado = [
+        {
+            '#Nome': { title: "Nome do cliente", value: null, required: true, pattern: null },
+            '#Email': { title: "Email casa", value: null, required: true, pattern: /^[\w\d.-_]+@[\w\d-_]+(\.[\w\d-_]+)*$/ }
+        },
+        {
+            "#Rua": { title: "Rua", value: null, required: true, pattern: null },
+            "#Numero": { title: "Nº", value: null, required: true, pattern: null },
+            "#CEP": { title: "CEP", value: null, required: true, pattern: null },
+            "#Estado": { title: "Estado", value: null, required: true, pattern: null }
+        },
+        {
+            '#twitter': { title: "Twitter", value: null, required: true, pattern: null },
+            '#facebook': { title: "Facebook", value: null, required: true, pattern: null }
+        }
+    ];
 
     var pagina = 0;
     var maxPages = resultado.length;
@@ -79,7 +81,7 @@
         document.querySelector('#pg' + pagina).style.display = "block";
 
         document.querySelector('#voltar').style.display = (pagina > 0 ? 'block' : 'none');
-        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block')
+        document.querySelector('#avancar').style.display = (pagina === maxPages  ? 'none' : 'block');
         document.querySelector('#avancar').value = (pagina === maxPages -1  ? 'Concluir' : 'Avançar');
     }
 
@@ -101,7 +103,6 @@
 
             if (item.pattern) {
                 if (!item.value.match(item.pattern)) {
-                    document.querySelector('#alerta').style.display = "block";
                     document.querySelector('#alerta').innerHTML += item.title + ' não bate com o padrão.<br/>';
                     ok = false;
                 }
