@@ -23,34 +23,44 @@
 
 <script type="text/javascript">
 
-    var acumulador = 0;
+    var acumulador = null;
+
+    var lastOperacao = null;
 
     function executarOperacao (operacao) {
-        var numero = document.querySelector('#Numero').value;
+        var numero = parseFloat(document.querySelector('#Numero').value);
         var display = numero + " " + operacao + "<br/>";
         document.querySelector('#Numero').value = null;
 
-        if (operacao == '+') {
-            acumulador = acumulador + parseFloat(numero);
+        if (acumulador == null) {
+            acumulador = parseFloat(numero);
+        } else {
+            if (lastOperacao == '+') {
+                acumulador = acumulador + numero;
+            }
+            else if (lastOperacao == '-') {
+                acumulador = acumulador - numero;
+            }
+            else if (lastOperacao == '*') {
+                acumulador = acumulador * numero;
+            }
+            else if (lastOperacao == '/') {
+                acumulador = acumulador / numero;
+            }
         }
-        else if (operacao == '-') {
-            acumulador = acumulador - parseFloat(numero);
-        }
-        else if (operacao == '*') {
-            acumulador = acumulador * parseFloat(numero);
-        }
-        else if (operacao == '/') {
-            acumulador = acumulador / parseFloat(numero);
-        }
-        else if (operacao == '=') {
-            display = acumulador + ' =<br/>';
-            acumulador = 0;
+
+        console.log(numero, operacao, acumulador);
+
+        if (operacao == '=') {
+            display = numero + ' ' + lastOperacao + '<br/>';
+            display += acumulador + ' =<br/>';
+            acumulador = null;
+            lastOperacao = null;
+        } else {
+            lastOperacao = operacao;
         }
 
         document.getElementById("resultado").innerHTML += display;
-        console.log(numero);
-        console.log(operacao);
-        console.log(acumulador)
     }
 
 
