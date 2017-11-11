@@ -71,11 +71,11 @@
 
     function memoria(funcaoMem) {
             if (funcaoMem == 'Mr') {
-                numLido = nums[nums.length - 1];
-                console.log('Numero na memória: ', numLido);
+                document.querySelector('#Numero').value = numLido;
             }
             else if (funcaoMem == 'Mw') {
-                document.querySelector('#Numero').value = numLido;
+                numLido = nums[nums.length - 1];
+                console.log('Numero na memória: ', numLido);
             }
             else if (funcaoMem == 'Mc'){
                 numLido = null;
