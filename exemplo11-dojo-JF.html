@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>calculadora</title>
+    <style>
+
+
+    </style>
 </head>
 <body>
 <div id="calculadora">
@@ -14,9 +18,11 @@
     <input id="Igual" type="button" name="Igual" value="=" onclick="executarOperacao('=')"/><br/>
     <input id="MemoriaRead" type="button" name="MemoriaR" value="Mr" onclick="memoria('Mr')" />
     <input id="MemoriaWrite" type="button" name="MemoriaW" value="Mw" onclick="memoria('Mw')" />
-    <input id="MemoriaClear" type="button" name="MemoriaC" value="Clear" onclick="memoria('Mc')" />
-    <input id="ClearAll" type="button" name="ClearAll" value="C" onclick="" />
+    <input id="MemoriaClear" type="button" name="MemoriaC" value="Mc" onclick="memoria('Mc')" />
+    <input id="ClearAll" type="button" name="ClearAll" value="C" onclick="clearAll()" />
     <input id="Voltar" type="button" name="Voltar" value="<--" onclick="" />
+    <span id="MemoriaAlert"></span>
+
 </div>
 <div id="resultado"></div>
 
@@ -76,8 +82,10 @@
             else if (funcaoMem == 'Mw') {
                 numLido = nums[nums.length - 1];
                 console.log('Numero na memória: ', numLido);
+                document.getElementById("MemoriaAlert").innerHTML = 'Numero na memória: '+ numLido;
             }
             else if (funcaoMem == 'Mc'){
+                document.getElementById("MemoriaAlert").innerHTML = "";
                 numLido = null;
                 console.log(' ');
                 console.log('-----Memória APAGADA-----');
@@ -85,6 +93,17 @@
                 console.log(' ');
             }
     }
+
+    function clearAll(){
+        document.getElementById("resultado").innerHTML = "";
+        while (nums.length > 0) {
+            nums.pop(0);
+        }
+        console.log(nums);
+    }
+
+
+
 
 
 
