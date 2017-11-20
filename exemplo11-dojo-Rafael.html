@@ -12,10 +12,12 @@
     <input id="Multiplicacao" type="button" name="Multiplicacao" value="*" onclick="executarOperacao('*')"/>
     <input id="Divisao" type="button" name="Divisao" value="/" onclick="executarOperacao('/')"/>
     <input id="Igual" type="button" name="Igual" value="=" onclick="executarOperacao('=')"/><br/>
-    <input id="MemoriaRead" type="button" name="MemoriaR" value="Mr" />
-    <input id="MemoriaWrite" type="button" name="MemoriaW" value="Mw" />
-    <input id="MemoriaClear" type="button" name="MemoriaC" value="Clear" />
-    <input id="Voltar" type="button" name="Voltar" value="<--" />
+    <input id="MemoriaRead" type="button" name="MemoriaR" value="Mr" onclick="executarMemoria('Mr')"/>
+    <input id="MemoriaWrite" type="button" name="MemoriaW" value="Mw" onclick="executarMemoria('Mw')"/>
+    <input id="MemoriaClear" type="button" name="MemoriaC" value="Mc" onclick="executarMemoria('Mc')" />
+    <input id="LimpaTudo" type="button" name="LimpaTudo" value="Clear" onclick="limpaTudo()"/>
+    <input id="Voltar" type="button" name="Voltar" value="<--" onclick="desfazer()"/>
+    <span id="MemoriaAviso"></span>
 </div>
 <div id="resultado"></div>
 
@@ -25,6 +27,9 @@
 
     var acumulador = null;
     var lastOperacao = null;
+    var lastNumero = null;
+    var numerosEOperacao = [];
+
 
     function executarOperacao (operacao) {
         var numero = parseFloat(document.querySelector('#Numero').value);
@@ -46,9 +51,11 @@
             else if (lastOperacao == '/') {
                 acumulador = acumulador / numero;
             }
+            numerosEOperacao.push(numero);
+            numerosEOperacao.push(acumulador);
         }
 
-        console.log(numero, operacao, acumulador);
+        console.log(numero, operacao, acumulador, numerosEOperacao);
 
         if (operacao == '=') {
             numero = (document.querySelector('#Numero').value == null ? "0" : numero);
@@ -66,7 +73,31 @@
 
         document.getElementById("resultado").innerHTML += display;
     }
+    function executarMemoria(memoria) {
+        if (memoria == 'Mr') {
+            document.querySelector('#Numero').value = lastNumero;
+        }
+        else if (memoria == 'Mw') {
+            lastNumero = numerosEOperacao[numerosEOperacao.length - 1];
+        }
+        else if (funcaoMem == 'Mc'){
+            lastNumero = null;
+        }
+        console.log(lastNumero);
+    }
 
+    function limpaTudo (){
+        document.getElementById("resultado").innerHTML = "";
+        while (nums.length > 0) {
+            nums.pop(0);
+        }
+        console.log(nums);
+    }
+
+    function desfazer (){
+        // a ultima operacao deve sumir da lista e voltar para a caixa de textoo numero
+        //
+    }
 
 
 </script>
