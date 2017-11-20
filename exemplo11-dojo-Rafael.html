@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>calculadora</title>
+</head>
+<body>
+<div id="calculadora">
+    Numero: <input id="Numero" type="number" name="Numero" placeholder="Digite o Valor" /><br/>
+    <input id="Soma" type="button" name="Soma" value="+" onclick="executarOperacao('+')"/>
+    <input id="Subtracao" type="button" name="Subtracao" value="-" onclick="executarOperacao('-')" />
+    <input id="Multiplicacao" type="button" name="Multiplicacao" value="*" onclick="executarOperacao('*')"/>
+    <input id="Divisao" type="button" name="Divisao" value="/" onclick="executarOperacao('/')"/>
+    <input id="Igual" type="button" name="Igual" value="=" onclick="executarOperacao('=')"/><br/>
+    <input id="MemoriaRead" type="button" name="MemoriaR" value="Mr" />
+    <input id="MemoriaWrite" type="button" name="MemoriaW" value="Mw" />
+    <input id="MemoriaClear" type="button" name="MemoriaC" value="Clear" />
+    <input id="Voltar" type="button" name="Voltar" value="<--" />
+</div>
+<div id="resultado"></div>
+
+
+
+<script type="text/javascript">
+
+    var acumulador = null;
+    var lastOperacao = null;
+
+    function executarOperacao (operacao) {
+        var numero = parseFloat(document.querySelector('#Numero').value);
+        var display = numero + " " + operacao + "<br/>";
+        document.querySelector('#Numero').value = null;
+
+        if (acumulador == null) {
+            acumulador = parseFloat(numero);
+        } else {
+            if (lastOperacao == '+') {
+                acumulador = acumulador + numero;
+            }
+            else if (lastOperacao == '-') {
+                acumulador = acumulador - numero;
+            }
+            else if (lastOperacao == '*') {
+                acumulador = acumulador * numero;
+            }
+            else if (lastOperacao == '/') {
+                acumulador = acumulador / numero;
+            }
+        }
+
+        console.log(numero, operacao, acumulador);
+
+        if (operacao == '=') {
+            numero = (document.querySelector('#Numero').value == null ? "0" : numero);
+            console.log(numero);
+            lastOperacao = (lastOperacao == null ? "=" : lastOperacao);
+            display = numero + ' ' + lastOperacao + '<br/>';
+            display += acumulador + ' =<br/>';
+            acumulador = null;
+            lastOperacao = null;
+        }
+        else
+            {
+                lastOperacao = operacao;
+            }
+
+        document.getElementById("resultado").innerHTML += display;
+    }
+
+
+
+</script>
+
+
+
+</body>
+</html>
