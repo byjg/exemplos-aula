@@ -53,16 +53,17 @@
             }
             numerosEOperacao.push(numero);
             numerosEOperacao.push(acumulador);
+            lastNumero = numero;
         }
 
         console.log(numero, operacao, acumulador, numerosEOperacao);
 
         if (operacao == '=') {
-            numero = (document.querySelector('#Numero').value == null ? "0" : numero);
-            console.log(numero);
+            numero = (document.querySelector('#Numero').value == null ? 0 : numero);
             lastOperacao = (lastOperacao == null ? "=" : lastOperacao);
             display = numero + ' ' + lastOperacao + '<br/>';
             display += acumulador + ' =<br/>';
+            lastNumero = acumulador;
             acumulador = null;
             lastOperacao = null;
         }
@@ -75,12 +76,13 @@
     }
     function executarMemoria(memoria) {
         if (memoria == 'Mr') {
-            document.querySelector('#Numero').value = lastNumero;
+            lastNumero = (document.querySelector('#Numero').value == null ? lastNumero : parseFloat(document.querySelector('#Numero').value));
         }
         else if (memoria == 'Mw') {
-            lastNumero = numerosEOperacao[numerosEOperacao.length - 1];
+            acumulador = acumulador+lastOperacao+ lastNumero ;
+            document.getElementById("resultado").innerHTML = lastNumero + '<br/>';
         }
-        else if (funcaoMem == 'Mc'){
+        else if (memoria == 'Mc'){
             lastNumero = null;
         }
         console.log(lastNumero);
@@ -88,10 +90,10 @@
 
     function limpaTudo (){
         document.getElementById("resultado").innerHTML = "";
-        while (nums.length > 0) {
-            nums.pop(0);
+        while (numerosEOperacao.length > 0) {
+            numerosEOperacao.pop(0);
         }
-        console.log(nums);
+        console.log(numerosEOperacao);
     }
 
     function desfazer (){
