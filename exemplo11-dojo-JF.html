@@ -20,7 +20,8 @@
     <input id="MemoriaWrite" type="button" name="MemoriaW" value="Mw" onclick="memoria('Mw')" />
     <input id="MemoriaClear" type="button" name="MemoriaC" value="Mc" onclick="memoria('Mc')" />
     <input id="ClearAll" type="button" name="ClearAll" value="C" onclick="clearAll()" />
-    <input id="Voltar" type="button" name="Voltar" value="<--" onclick="" />
+    <input id="Voltar" type="button" name="Voltar" value="<--" onclick="voltar()" />
+    <input id="teste" type="button" name="log" value="Log" onclick="log()" />
     <span id="MemoriaAlert"></span>
 
 </div>
@@ -60,11 +61,12 @@
                 acumulador = acumulador / numero;
             }
             nums.push(numero);
-            nums.push(acumulador);
+            var lastNum = acumulador;
         }
-        console.log(numero, operacao, acumulador);
-        console.log('Numeros Guardados: ', nums);
         if (operacao == '=') {
+            if (lastNum !== null) {
+                nums.push(acumulador);
+            }
             display = numero + ' ' + lastOperacao + '<br/>';
             display += acumulador + ' =<br/>';
             acumulador = null;
@@ -73,6 +75,8 @@
             lastOperacao = operacao;
         }
         document.getElementById("resultado").innerHTML += display;
+        console.log(numero, operacao, acumulador);
+        console.log('Numeros Guardados: ', nums);
     }
 
     function memoria(funcaoMem) {
@@ -95,17 +99,35 @@
     }
 
     function clearAll(){
+        document.getElementById("MemoriaAlert").innerHTML = "";
         document.getElementById("resultado").innerHTML = "";
+        numLido = null;
         while (nums.length > 0) {
             nums.pop(0);
         }
+        console.log(' ');
+        console.log('-----Números APAGADOS-----');
+        console.log('Números guardados:', nums);
+        console.log(' ');
+        console.log('-----Memória APAGADA-----');
+        console.log('Numero na memória: ', numLido);
+        console.log(' ');
+    }
+
+    function voltar () {
+        document.getElementById('Numero').value = nums[nums.length - 1];
+        nums.pop(0);
         console.log(nums);
     }
 
+    function log(){
+        console.log(' ');
+        console.log('Números guardados:', nums);
+        console.log('Numero na memória: ', numLido);
+        console.log(' ');
+    }
 
-
-
-
+    //
 
 
 
