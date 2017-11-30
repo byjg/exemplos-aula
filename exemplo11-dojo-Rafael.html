@@ -36,24 +36,31 @@
         var display = numero + " " + operacao + "<br/>";
         document.querySelector('#Numero').value = null;
 
-        if (acumulador == null) {
-            acumulador = parseFloat(numero);
+        if (numerosEOperacao.length === 0) {
+            nums.push({
+                "numero": parseFloat(numero),
+                "operacao": null,
+                "total": parseFloat(numero)
+            });
         } else {
+            var total = nums[nums.length-1].total;
             if (lastOperacao == '+') {
-                acumulador = acumulador + numero;
+                total = total + numero;
             }
             else if (lastOperacao == '-') {
-                acumulador = acumulador - numero;
+                total = total - numero;
             }
             else if (lastOperacao == '*') {
-                acumulador = acumulador * numero;
+                total = total * numero;
             }
             else if (lastOperacao == '/') {
-                acumulador = acumulador / numero;
+                total = total / numero;
             }
-            numerosEOperacao.push(numero);
-            numerosEOperacao.push(acumulador);
-            lastNumero = numero;
+            nums.push({
+                "numero": numero,
+                "operacao": lastOperacao,
+                "total": total
+            });
         }
 
         console.log(numero, operacao, acumulador, numerosEOperacao);
@@ -63,8 +70,7 @@
             lastOperacao = (lastOperacao == null ? "=" : lastOperacao);
             display = numero + ' ' + lastOperacao + '<br/>';
             display += acumulador + ' =<br/>';
-            lastNumero = acumulador;
-            acumulador = null;
+            numerosEOperacao = [];
             lastOperacao = null;
         }
         else
@@ -76,9 +82,10 @@
     }
     function executarMemoria(memoria) {
         if (memoria == 'Mr') {
-            lastNumero = (document.querySelector('#Numero').value == null ? lastNumero : parseFloat(document.querySelector('#Numero').value));
+            document.querySelector('#Numero').value = lastNumero;
         }
         else if (memoria == 'Mw') {
+            lastNumero = nums[nums.length - 1].numero;
             acumulador = acumulador+lastOperacao+ lastNumero ;
             document.getElementById("resultado").innerHTML = lastNumero + '<br/>';
         }
@@ -89,16 +96,20 @@
     }
 
     function limpaTudo (){
-        document.getElementById("resultado").innerHTML = "";
-        while (numerosEOperacao.length > 0) {
-            numerosEOperacao.pop(0);
-        }
+        lastNumero = null;
+        numerosEOperacao = [];
+        lastOperacao = null;
         console.log(numerosEOperacao);
     }
 
     function desfazer (){
-        // a ultima operacao deve sumir da lista e voltar para a caixa de textoo numero
-        // apagar lista, reaparecer texto e fazer conta inversa
+        document.getElementById('Numero').value = nums[numerosEOperacao.length - 1];
+        nums.pop(0);
+        console.log(numerosEOperacao);
+        var conteudo = document.getElementById("resultado").innerHTML.split('<br>');
+        conteudo.pop();
+        conteudo.pop();
+        document.getElementById("resultado").innerHTML = conteudo.join('<br>') + "<br>";
     }
 
 
