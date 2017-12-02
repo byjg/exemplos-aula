@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>calculadora</title>
+</head>
+<body>
+<div id="calculadora">
+    Numero: <input id="Numero" type="number" name="Numero" placeholder="Digite o Valor" /><br/>
+    <input id="Soma" type="button" name="Soma" value="+" onclick="executarOperacao('+')"/>
+    <input id="Subtracao" type="button" name="Subtracao" value="-" onclick="executarOperacao('-')" />
+    <input id="Multiplicacao" type="button" name="Multiplicacao" value="*" onclick="executarOperacao('*')"/>
+    <input id="Divisao" type="button" name="Divisao" value="/" onclick="executarOperacao('/')"/>
+    <input id="Igual" type="button" name="Igual" value="=" onclick="executarOperacao('=')"/><br/>
+    <input id="MemoriaRead" type="button" name="MemoriaR" value="Mr" onclick="executarMemoria('Mr')"/>
+    <input id="MemoriaWrite" type="button" name="MemoriaW" value="Mw" onclick="executarMemoria('Mw')"/>
+    <input id="MemoriaClear" type="button" name="MemoriaC" value="Mc" onclick="executarMemoria('Mc')" />
+    <input id="LimpaTudo" type="button" name="LimpaTudo" value="Clear" onclick="limpaTudo()"/>
+    <input id="Voltar" type="button" name="Voltar" value="<--" onclick="desfazer()"/>
+    <span id="MemoriaAviso"></span>
+</div>
+<div id="resultado"></div>
+
+
+
+<script type="text/javascript">
+
+    var acumulador = null;
+    var lastOperacao = null;
+    var lastNumero = null;
+    var numerosEOperacao = [];
+
+
+    function executarOperacao (operacao) {
+        var numero = parseFloat(document.querySelector('#Numero').value);
+        var display = numero + " " + operacao + "<br/>";
+        document.querySelector('#Numero').value = null;
+
+        if (acumulador == null) {
+            acumulador = parseFloat(numero);
+        } else {
+            if (lastOperacao == '+') {
+                acumulador = acumulador + numero;
+            }
+            else if (lastOperacao == '-') {
+                acumulador = acumulador - numero;
+            }
+            else if (lastOperacao == '*') {
+                acumulador = acumulador * numero;
+            }
+            else if (lastOperacao == '/') {
+                acumulador = acumulador / numero;
+            }
+            numerosEOperacao.push(numero);
+            numerosEOperacao.push(acumulador);
+            lastNumero = numero;
+        }
+
+        console.log(numero, operacao, acumulador, numerosEOperacao);
+
+        if (operacao == '=') {
+            numero = (document.querySelector('#Numero').value == null ? 0 : numero);
+            lastOperacao = (lastOperacao == null ? "=" : lastOperacao);
+            display = numero + ' ' + lastOperacao + '<br/>';
+            display += acumulador + ' =<br/>';
+            lastNumero = acumulador;
+            acumulador = null;
+            lastOperacao = null;
+        }
+        else
+            {
+                lastOperacao = operacao;
+            }
+
+        document.getElementById("resultado").innerHTML += display;
+    }
+    function executarMemoria(memoria) {
+        if (memoria == 'Mr') {
+            lastNumero = (document.querySelector('#Numero').value == null ? lastNumero : parseFloat(document.querySelector('#Numero').value));
+        }
+        else if (memoria == 'Mw') {
+            acumulador = acumulador+lastOperacao+ lastNumero ;
+            document.getElementById("resultado").innerHTML = lastNumero + '<br/>';
+        }
+        else if (memoria == 'Mc'){
+            lastNumero = null;
+        }
+        console.log(lastNumero);
+    }
+
+    function limpaTudo (){
+        document.getElementById("resultado").innerHTML = "";
+        while (numerosEOperacao.length > 0) {
+            numerosEOperacao.pop(0);
+        }
+        console.log(numerosEOperacao);
+    }
+
+    function desfazer (){
+        // a ultima operacao deve sumir da lista e voltar para a caixa de textoo numero
+        // apagar lista, reaparecer texto e fazer conta inversa
+    }
+
+
+</script>
+
+
+
+</body>
+</html>
