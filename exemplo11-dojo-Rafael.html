@@ -25,7 +25,6 @@
 
 <script type="text/javascript">
 
-    var acumulador = null;
     var lastOperacao = null;
     var lastNumero = null;
     var numerosEOperacao = [];
@@ -37,13 +36,13 @@
         document.querySelector('#Numero').value = null;
 
         if (numerosEOperacao.length === 0) {
-            nums.push({
+            numerosEOperacao.push({
                 "numero": parseFloat(numero),
                 "operacao": null,
                 "total": parseFloat(numero)
             });
         } else {
-            var total = nums[nums.length-1].total;
+            var total = numerosEOperacao[numerosEOperacao.length-1].total;
             if (lastOperacao == '+') {
                 total = total + numero;
             }
@@ -56,28 +55,22 @@
             else if (lastOperacao == '/') {
                 total = total / numero;
             }
-            nums.push({
+            numerosEOperacao.push({
                 "numero": numero,
                 "operacao": lastOperacao,
                 "total": total
             });
         }
 
-        console.log(numero, operacao, acumulador, numerosEOperacao);
-
         if (operacao == '=') {
-            numero = (document.querySelector('#Numero').value == null ? 0 : numero);
-            lastOperacao = (lastOperacao == null ? "=" : lastOperacao);
-            display = numero + ' ' + lastOperacao + '<br/>';
-            display += acumulador + ' =<br/>';
+            display += numerosEOperacao[numerosEOperacao.length-1].total+ ' =<br/>';
             numerosEOperacao = [];
-            lastOperacao = null;
         }
         else
             {
                 lastOperacao = operacao;
             }
-
+        console.log(numerosEOperacao);
         document.getElementById("resultado").innerHTML += display;
     }
     function executarMemoria(memoria) {
@@ -85,8 +78,7 @@
             document.querySelector('#Numero').value = lastNumero;
         }
         else if (memoria == 'Mw') {
-            lastNumero = nums[nums.length - 1].numero;
-            acumulador = acumulador+lastOperacao+ lastNumero ;
+            lastNumero = numerosEOperacao[numerosEOperacao.length - 1].numero;
             document.getElementById("resultado").innerHTML = lastNumero + '<br/>';
         }
         else if (memoria == 'Mc'){
@@ -103,8 +95,8 @@
     }
 
     function desfazer (){
-        document.getElementById('Numero').value = nums[numerosEOperacao.length - 1];
-        nums.pop(0);
+        document.getElementById('Numero').value = numerosEOperacao[numerosEOperacao.length - 1];
+        numerosEOperacao.pop(0);
         console.log(numerosEOperacao);
         var conteudo = document.getElementById("resultado").innerHTML.split('<br>');
         conteudo.pop();
