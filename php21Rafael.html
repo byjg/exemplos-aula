@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercico php</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+    <script>
+
+        function enviarDados() {
+            $.ajax({
+                url: "php21Rafael.php?login=" + $("#login").val(),
+                url: "php21Rafael.php?senha=" + $("#senha").val()
+
+            }).done(function() {
+                if (loginConfere && senhaConfere === 1) {
+                    window.self.location.href:"ph22Rafael.htlm";
+                }
+                else {
+                    document.getElementById("logar").innerHTML = 'Erro! +<br/>';
+                }
+
+            });
+        }
+    </script>
+
+</head>
+<body>
+<form id="logar">
+    Login: <input type="text" id="login" name="Login" value=""><br/>
+    Senha: <input type="text" id="senha" name="Senha"value=""><br/>
+    <input type="button" value="Logar" onclick="enviarDados()">
+</form>
+
+</body>
+</html>

@@ -78,8 +78,7 @@
             document.querySelector('#Numero').value = lastNumero;
         }
         else if (memoria == 'Mw') {
-            lastNumero = numerosEOperacao[numerosEOperacao.length - 1].numero;
-            document.getElementById("resultado").innerHTML = lastNumero + '<br/>';
+            lastNumero=(numerosEOperacao[numerosEOperacao.length] >0 ? numerosEOperacao[numerosEOperacao.length-1].numero : document.querySelector('#Numero').value)
         }
         else if (memoria == 'Mc'){
             lastNumero = null;
