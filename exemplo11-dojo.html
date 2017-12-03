@@ -36,44 +36,92 @@
 
   var numMemoria = null;
 
-  function executarOperacao (operacao) {
-    var numero = parseFloat(document.querySelector('#Numero').value);
-    var display = numero + " " + operacao + "<br/>";
-    document.querySelector('#Numero').value = null;
-    if (nums.length === 0) {
-      nums.push({
+  function ajustarListaNum(numero, operacao) {
+    if (nums.length > 0) {
+      return false;
+    }
+
+    nums.push({
         "numero": parseFloat(numero),
         "operacao": null,
         "lastOperacao": operacao,
         "total": parseFloat(numero)
-      });
-    } else {
-      var total = nums[nums.length-1].total;
-      var lastOperacao = nums[nums.length-1].lastOperacao;
-      if (lastOperacao === '+') {
-        total = total + numero;
-      }
-      else if (lastOperacao === '-') {
-        total = total - numero;
-      }
-      else if (lastOperacao === '*') {
-        total = total * numero;
-      }
-      else if (lastOperacao === '/') {
-        total = total / numero;
-      }
-      nums.push({
-        "numero": numero,
-        "operacao": lastOperacao,
-        "lastOperacao": operacao,
-        "total": total
-      });
+    });
+
+    return true;
+  }
+
+  function operacaoSoma(n1, n2) {
+    return n1 + n2;
+  }
+
+  function operacaoSubtracao(n1, n2) {
+    return n1 - n2;
+  }
+
+  function operacaoMultiplicacao(n1, n2) {
+    return n1 * n2;
+  }
+
+  function operacaoDivisao(n1, n2) {
+    return n1 / n2;
+  }
+
+  function operacaoIgual(n1, n2) {
+    return n1;
+  }
+
+  function factoryOperacao(operacao) {
+    var operacoes = {
+      '+': 'operacaoSoma',
+      '-': 'operacaoSubtracao',
+      '*': 'operacaoMultiplicacao',
+      '/': 'operacaoDivisao',
+      '=': 'operacaoIgual'
+    };
+
+    return window[operacoes[operacao]];
+  }
+
+  function resolverOperacao(numero, operacao) {
+
+    var total = nums[nums.length-1].total;
+    var lastOperacao = nums[nums.length-1].lastOperacao;
+
+    var minhaOperacao = factoryOperacao(lastOperacao);
+    total = minhaOperacao(total, numero);
+
+    nums.push({
+      "numero": numero,
+      "operacao": lastOperacao,
+      "lastOperacao": operacao,
+      "total": total
+    });
+
+    return total;
+  }
+
+  function executarOperacao (operacao) {
+    var numero = parseFloat(document.querySelector('#Numero').value);
+    var display = numero + " " + operacao + "<br/>";
+    document.querySelector('#Numero').value = null;
+
+    if (ajustarListaNum(numero, operacao)) {
+      atualizarDisplay(display);
+      return;
     }
+
+    var resultado = resolverOperacao(numero, operacao);
+
     if (operacao === '=') {
-      display = numero + ' ' + lastOperacao + '<br/>';
-      display += nums[nums.length-1].total + ' =<br/>';
+      display += resultado + '. <br/>';
       nums = [];
     }
+
+    atualizarDisplay(display);
+  }
+
+  function atualizarDisplay(display) {
     document.getElementById("resultado").innerHTML += display;
     console.log('Numeros Guardados: ', nums);
   }
