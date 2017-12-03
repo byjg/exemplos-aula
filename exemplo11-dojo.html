@@ -34,9 +34,7 @@
 
   var nums = [];
 
-  var lastOperacao = null;
-
-  var numLido = null;
+  var numMemoria = null;
 
   function executarOperacao (operacao) {
     var numero = parseFloat(document.querySelector('#Numero').value);
@@ -46,55 +44,55 @@
       nums.push({
         "numero": parseFloat(numero),
         "operacao": null,
+        "lastOperacao": operacao,
         "total": parseFloat(numero)
       });
     } else {
       var total = nums[nums.length-1].total;
-      if (lastOperacao == '+') {
+      var lastOperacao = nums[nums.length-1].lastOperacao;
+      if (lastOperacao === '+') {
         total = total + numero;
       }
-      else if (lastOperacao == '-') {
+      else if (lastOperacao === '-') {
         total = total - numero;
       }
-      else if (lastOperacao == '*') {
+      else if (lastOperacao === '*') {
         total = total * numero;
       }
-      else if (lastOperacao == '/') {
+      else if (lastOperacao === '/') {
         total = total / numero;
       }
       nums.push({
         "numero": numero,
         "operacao": lastOperacao,
+        "lastOperacao": operacao,
         "total": total
       });
     }
-    if (operacao == '=') {
+    if (operacao === '=') {
       display = numero + ' ' + lastOperacao + '<br/>';
       display += nums[nums.length-1].total + ' =<br/>';
       nums = [];
-      lastOperacao = null;
-    } else {
-      lastOperacao = operacao;
     }
     document.getElementById("resultado").innerHTML += display;
     console.log('Numeros Guardados: ', nums);
   }
 
   function memoria(funcaoMem) {
-    if (funcaoMem == 'Mr') {
-      document.querySelector('#Numero').value = numLido;
+    if (funcaoMem === 'Mr') {
+      document.querySelector('#Numero').value = numMemoria;
     }
-    else if (funcaoMem == 'Mw') {
-      numLido = nums[nums.length - 1].numero;
-      console.log('Numero na memória: ', numLido);
-      document.getElementById("MemoriaAlert").innerHTML = 'Numero na memória: '+ numLido;
+    else if (funcaoMem === 'Mw') {
+      numMemoria = nums[nums.length - 1].numero;
+      console.log('Numero na memória: ', numMemoria);
+      document.getElementById("MemoriaAlert").innerHTML = 'Numero na memória: '+ numMemoria;
     }
-    else if (funcaoMem == 'Mc'){
+    else if (funcaoMem === 'Mc'){
       document.getElementById("MemoriaAlert").innerHTML = "";
-      numLido = null;
+      numMemoria = null;
       console.log(' ');
       console.log('-----Memória APAGADA-----');
-      console.log('Numero na memória: ', numLido);
+      console.log('Numero na memória: ', numMemoria);
       console.log(' ');
     }
   }
@@ -102,15 +100,14 @@
   function clearAll(){
     document.getElementById("MemoriaAlert").innerHTML = "";
     document.getElementById("resultado").innerHTML = "";
-    numLido = null;
+    numMemoria = null;
     nums = [];
-    lastOperacao = null;
     console.log(' ');
     console.log('-----Números APAGADOS-----');
     console.log('Números guardados:', nums);
     console.log(' ');
     console.log('-----Memória APAGADA-----');
-    console.log('Numero na memória: ', numLido);
+    console.log('Numero na memória: ', numMemoria);
     console.log(' ');
   }
 
@@ -127,13 +124,9 @@
   function log(){
     console.log(' ');
     console.log('Números guardados:', nums);
-    console.log('Numero na memória: ', numLido);
+    console.log('Numero na memória: ', numMemoria);
     console.log(' ');
   }
-
-  //
-
-
 
 </script>
 
