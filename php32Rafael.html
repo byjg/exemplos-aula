@@ -42,7 +42,22 @@
     window.onload = login();
 
    function login (){
-    console.log("teste");
+       var autenticado = window.localStorage['token'];
+       $.ajax({
+           type: 'POST',
+           url: "php32Rafael.php",
+           data: {
+               meutoken: $("#usuario").val(),
+               senha: $("#senha").val(),
+           }
+       }).done(function(data) {
+           data = JSON.parse(data);
+           if (data.error) {
+               alert(data.error);
+               return;
+           }
+       });
+       console.log(data);
    }
 
 </script>
@@ -61,13 +76,35 @@
             <div class="divTableCell">Estado</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell">&nbsp;</div>
-            <div class="divTableCell">&nbsp;</div>
-            <div class="divTableCell">&nbsp;</div>
+            <div class="divTableCell" id="Nome"> &nbsp;</div>
+            <div class="divTableCell" id="Cidade"> &nbsp;</div>
+            <div class="divTableCell" id="Estado">&nbsp;</div>
         </div>
     </div>
 </div>
-<!-- DivTable.com -->
+
+<script>
+    function preencher (){
+        $.ajax({
+            type: 'POST',
+            url: "php32Rafael.php",
+            data: {
+                usuario: $("#usuario").val(),
+                senha: $("#senha").val(),
+            }
+        }).done(function(data) {
+            data = JSON.parse(data);
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+        });
+        console.log(data);
+    }
+
+</script>
+
+
 
 </body>
 </html>

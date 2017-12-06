@@ -4,9 +4,9 @@ $result = [
     'error' => 'Credencias Inválidas'
 ];
 
-if ($_REQUEST['usuario'] === 'admin' && $_REQUEST['senha'] === 'pwd') {
+if ($_REQUEST['token'] === 'meutoken') {
     $result = [
-        'authenticated' => 'meutoken'
+        'ok' => 'liberado'
     ];
 }
 
