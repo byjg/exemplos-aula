@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+<script>
+
+    function login () {
+        $.ajax({
+            type: 'POST',
+            url: "php31JF.php",
+            data: {
+                usuario: $("#usuario").val(),
+                senha: $("#senha").val(),
+            }
+        }).done(function(data) {
+            data = JSON.parse(data);
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+            window.localStorage['token'] = data.authenticated;
+            console.log(data);
+            window.location = 'php32JF.html';
+        });
+    }
+
+
+
+
+</script>
+
+
+
+<body>
+Usuário: <input id="usuario" type="text" name="usuario" placeholder="Insira seu Usuário"> <br>
+Senha:   <input id="senha" type="password" name="senha" placeholder="Insira sua Senha"><br>
+<input id="logar" type="button" name="botao" value="Logar" onclick="login()">
+</body>
+</html>
