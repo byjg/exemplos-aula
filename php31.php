@@ -6,7 +6,7 @@ $result = [
 
 if ($_REQUEST['usuario'] === 'admin' && $_REQUEST['senha'] === 'pwd') {
     $result = [
-        'authenticated' => 'meutokemnjg'
+        'authenticated' => 'meutokenjg'
     ];
 }
 
