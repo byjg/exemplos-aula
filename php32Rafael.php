@@ -4,9 +4,11 @@ $result = [
     'error' => 'Credencias Inválidas'
 ];
 
-if ($_REQUEST['token'] === 'meutoken') {
+if ($_REQUEST['valida'] === 'meutoken') {
     $result = [
-        'ok' => 'liberado'
+        'nome' => 'TESTE',
+        'cidade' => 'Rio de Janeiro',
+        'estado' => 'RJ'
     ];
 }
 

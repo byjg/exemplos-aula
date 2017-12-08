@@ -42,23 +42,25 @@
     window.onload = login();
 
    function login (){
-       var autenticado = window.localStorage['token'];
+       var valida = window.localStorage['token'];
+       console.log (valida);
        $.ajax({
            type: 'POST',
            url: "php32Rafael.php",
            data: {
-               meutoken: $("#usuario").val(),
-               senha: $("#senha").val(),
-           }
-       }).done(function(data) {
+               valida: $("#usuario").val()
+   }
+   }).done(function(data) {
            data = JSON.parse(data);
            if (data.error) {
                alert(data.error);
                return;
            }
+            console.log(data);
+           preencher();
        });
-       console.log(data);
    }
+
 
 </script>
 
@@ -76,9 +78,9 @@
             <div class="divTableCell">Estado</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell" id="Nome"> &nbsp;</div>
-            <div class="divTableCell" id="Cidade"> &nbsp;</div>
-            <div class="divTableCell" id="Estado">&nbsp;</div>
+            <div class="divTableCell" id="nome"> &nbsp;</div>
+            <div class="divTableCell" id="cidade"> &nbsp;</div>
+            <div class="divTableCell" id="estado">&nbsp;</div>
         </div>
     </div>
 </div>
@@ -89,17 +91,12 @@
             type: 'POST',
             url: "php32Rafael.php",
             data: {
-                usuario: $("#usuario").val(),
-                senha: $("#senha").val(),
-            }
-        }).done(function(data) {
-            data = JSON.parse(data);
-            if (data.error) {
-                alert(data.error);
-                return;
-            }
-        });
-        console.log(data);
+            'nome': $("#nome").val(),
+            'cidade': $("#cidade").val(),
+            'estado': $("#estado").val()
+    }
+    }).done(console.log(data));
+
     }
 
 </script>
