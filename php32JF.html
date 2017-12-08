@@ -38,20 +38,68 @@
 </style>
 
 <script>
+    validarToken();
 
-    function escrever () {
+    // function escrever () {
+    //     $.ajax({
+    //         type: 'post',
+    //         url: "php31JF.php",
+    //         data: {
+    //             'cidade': $("#cidade").val(),
+    //             'estado': $("#estado").val()
+    //         }
+    //     }).done(function(escreva) {
+    //
+    //     });
+    // }
+
+    function validarToken () {
+
+
+
+
+
+        // $.ajax({
+        //     type: "post",
+        //     url: "php312JF.php",
+        //     data: {
+        //         validado: ('meutoken')
+        //     }
+        // }).done(function(data) {
+        //     data = JSON.parse(data);
+        //     if (data.error) {
+        //         alert(data.error);
+        //         window.location = 'php31JF.html';
+        //         return;
+        //     }
+        //     window.localStorage['token'] = data.authenticated;
+        //     console.log(data);
+        //     //window.location = 'php32JF.html';
+        // });
+    //
+        var localToken = window.localStorage['token'];
+        if (!localToken) {
+            alert('Você não está autenticado');
+            window.location = 'php31JF.html';
+            console.log('aaa');
+        }
+
         $.ajax({
-            type: 'post',
-            url: "php31JF.php",
+            type: 'POST',
+            url: "php312JF.php",
             data: {
-                $("#nome"):
-                'nome': (#usuario).val(),
-                'cidade': $("#cidade").val(),
-                'estado': $("#estado").val()
+                token: localToken
             }
-        }).done(function(escreva) {
-
+        }).done(function(data) {
+            data = JSON.parse(data);
+            if (data.error) {
+                alert(data.error);
+                window.location = 'php31JF.html';
+                return;
+            }
+            console.log(data);
         });
+
     }
 
 
@@ -62,7 +110,7 @@
 <body>
 <h1>Pagina Segura</h1>
 
-<div class="divTable">
+<div class="divTable" id="dados">
     <div class="divTableBody">
         <div class="divTableRow">
             <div class="divTableCell">Nome</div>
@@ -70,9 +118,9 @@
             <div class="divTableCell">Estado</div>
         </div>
         <div class="divTableRow">
-            <div class="divTableCell" id="nome" ></div>
-            <div class="divTableCell" id="cidade"></div>
-            <div class="divTableCell" id="estado"></div>
+            <div class="divTableCell">a</div>
+            <div class="divTableCell">b</div>
+            <div class="divTableCell">c</div>
         </div>
     </div>
 </div>
