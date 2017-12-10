@@ -13,25 +13,20 @@
             url: "php31Rafael.php",
             data: {
               usuario: $("#usuario").val(),
-              senha: $("#senha").val(),
+              senha: $("#senha").val()
             }
         }).done(function(data) {
             data = JSON.parse(data);
             if (data.error) {
-              alert(data.error);
-              return;
+                alert(data.error)
+                return;
             }
             window.localStorage['token'] = data.authenticated;
             console.log(data);
             window.location = 'php32Rafael.html';
         });
     }
-
-
-
 </script>
-
-
 
 <body>
 Usuário: <input id="usuario" type="text" name="usuario" placeholder="Insira seu Usuário"> <br>
