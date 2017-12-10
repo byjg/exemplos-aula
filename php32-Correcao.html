@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script>
+        /**
+         { error: "message"}
+         { rows: [
+            {nome: "nome", cidade: "cidade", estadp: "estado"}
+           ]
+         }
+         */
+        function validarToken () {
+          if (!window.localStorage['token']) {
+            window.location = 'php31.html';
+            return;
+          }
+
+          $.ajax({
+            type: 'POST',
+            url: "php32-Correcao.php",
+            data: {
+              "token": window.localStorage['token'],
+            }
+          }).done(function(data) {
+            console.log("aqui");
+            data = JSON.parse(data);
+            if (data.error) {
+              window.localStorage['token'] = null;
+              alert(data.error);
+              window.location = "php31.html";
+              return;
+            }
+
+            console.log(data);
+
+            var linhas = "";
+            data.rows.unshift(
+              {"nome": "nome", "cidade":"cidade", "estado":"estado"}
+            );
+            for (var i=0; i < data.rows.length; i++) {
+              linhas = linhas + '<div class="divTableRow">\n' +
+                '                <div class="divTableCell">' + data.rows[i].nome + '</div>\n' +
+                '                <div class="divTableCell">' + data.rows[i].cidade + '</div>\n' +
+                '                <div class="divTableCell">' + data.rows[i].estado + '</div>\n' +
+                '            </div>\n';
+            }
+            console.log(linhas);
+            document.querySelector('.divTableBody').innerHTML = linhas;
+          });
+        }
+
+        validarToken();
+
+    </script>
+</head>
+<style>
+    .divTable{
+        display: table;
+        width: 100%;
+    }
+    .divTableRow {
+        display: table-row;
+    }
+    .divTableRow:first-child .divTableCell {
+        font-weight: bold;
+        text-transform: capitalize;
+        background-color: #ccc;
+    }
+    .divTableHeading {
+        background-color: #EEE;
+        display: table-header-group;
+    }
+    .divTableCell, .divTableHead {
+        border: 1px solid #999999;
+        display: table-cell;
+        padding: 3px 10px;
+    }
+    .divTableHeading {
+        background-color: #EEE;
+        display: table-header-group;
+        font-weight: bold;
+    }
+    .divTableFoot {
+        background-color: #EEE;
+        display: table-footer-group;
+        font-weight: bold;
+    }
+    .divTableBody {
+        display: table-row-group;
+    }
+</style>
+
+<script>
+</script>
+
+
+
+<body>
+<h1>Pagina Segura</h1>
+
+<div class="divTable">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell">Nome</div>
+            <div class="divTableCell">Cidade</div>
+            <div class="divTableCell">Estado</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

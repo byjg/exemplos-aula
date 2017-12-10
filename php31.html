@@ -7,7 +7,12 @@
 </head>
 <script>
 
-    function login () {
+  /**
+   { error: "message" }
+   { authenticated: "token" }
+   */
+
+  function login () {
         $.ajax({
             type: 'POST',
             url: "php31.php",
@@ -23,7 +28,7 @@
             }
             window.localStorage['token'] = data.authenticated;
             console.log(data);
-            window.location = 'php32.html';
+            window.location = 'php32-Correcao.html';
         });
     }
 
