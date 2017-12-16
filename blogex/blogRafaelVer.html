@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicio Blog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script>
+        function validarToken () {
+            if (!window.localStorage['token']) {
+                window.location = 'BlogRafaelLogin.html';
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "BlogRafaelLogin.php",
+                data: {
+                    "token": window.localStorage['token']
+                }
+            }).done(function(data) {
+                console.log("teste");
+                data = JSON.parse(data);
+                if (data.error) {
+                    window.localStorage['token'] = null;
+                    alert(data.error);
+                    window.location = "BlogRafaelLogin.html";
+                    return;
+                }
+
+                console.log(data);
+            });
+        }
+
+        validarToken();
+
+    </script>
+
+</head>
+<body>
+<div id="titulo">
+    Título: <br/>
+</div>
+
+<div id="Texto">
+    Texto: <br/>
+</div>
+
+<div id="editar">
+    <input id="editar" type="button" name="edita" value="Editar Página" onclick="edita()" /><br/>
+    <span id="MemoriaAlert"></span>
+</div>
+
+
+
+</body>
+</html>

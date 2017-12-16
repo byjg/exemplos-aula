@@ -10,7 +10,7 @@
     function login () {
         $.ajax({
             type: 'POST',
-            url: "php31.php",
+            url: "BlogRafaelLogin.php",
             data: {
                 usuario: $("#usuario").val(),
                 senha: $("#senha").val()
@@ -23,7 +23,7 @@
             }
             window.localStorage['token'] = data.authenticated;
             console.log(data);
-            window.location = 'php32-Correcao.html';
+            window.location = 'blogRafaelVer.html';
         });
     }
 
