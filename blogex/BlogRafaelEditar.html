@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Texto do Blog </title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script>
+    function validarToken () {
+        if (!window.localStorage['token']) {
+            window.location = 'BlogRafaelLogin.html';
+            return;
+        }
+    }
+
+    validarToken();
+
+</script>
+<body>
+<div id="texto">
+    Título: <input id="tituloEdita" type="text" name="tituloEdita" placeholder="Insira Título"> <br/>
+    Texto: <input id="textoEdita" type="text" name="textoEdita" placeholder="Insira seu Texto"> <br/><br/>
+    <input id="Inserir" type="button" name="botao" value="inserir" onclick="inserirTexto()">
+    <span id="Alerta"></span>
+</div>
+<script>
+    function inserirTexto () {
+
+    }
+</script>
+
+</body>
+</html>

@@ -11,7 +11,7 @@
                 return;
             }
 
-            $.ajax({
+        /*    $.ajax({
                 type: 'POST',
                 url: "BlogRafaelLogin.php",
                 data: {
@@ -26,9 +26,8 @@
                     window.location = "BlogRafaelLogin.html";
                     return;
                 }
-
                 console.log(data);
-            });
+            });*/
         }
 
         validarToken();
@@ -37,19 +36,17 @@
 
 </head>
 <body>
-<div id="titulo">
+<div id="blog">
     Título: <br/>
-</div>
-
-<div id="Texto">
     Texto: <br/>
-</div>
-
-<div id="editar">
     <input id="editar" type="button" name="edita" value="Editar Página" onclick="edita()" /><br/>
-    <span id="MemoriaAlert"></span>
+    <span id="Alerta"></span>
 </div>
-
+<script>
+    function edita () {
+        window.location = 'blogRafaelEditar.html';
+    }
+</script>
 
 
 </body>

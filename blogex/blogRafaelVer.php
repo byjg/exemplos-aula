@@ -7,10 +7,7 @@ $result = [
 
 if (validateToken($_REQUEST['token'])) {
     $result = [
-        "rows" => [
-            [ "nome" => "Fulano", "cidade" => "Rio", "estado" => "RJ"],
-            [ "nome" => "Beltrano", "cidade" => "BH", "estado" => "MG"],
-        ]
+
     ];
 }
 

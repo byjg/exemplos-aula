@@ -17,6 +17,7 @@
             }
         }).done(function(data) {
             data = JSON.parse(data);
+            console.log("entrando")
             if (data.error) {
                 alert(data.error);
                 return;
