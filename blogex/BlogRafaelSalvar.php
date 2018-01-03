@@ -1,7 +1,2 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Rafael
- * Date: 16/12/2017
- * Time: 12:37
- */
+file_put_contents('BlogRafaelTexto.txt', $conteudo);

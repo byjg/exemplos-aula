@@ -1,14 +1,16 @@
 <?php
 require 'C:/Users/Rafael/PhpstormProjects/exemplos-aula/php/utils.php';
 
-$result = [
-    'error' => 'Token Inválido'
-];
-
-if (validateToken($_REQUEST['token'])) {
-    $result = [
-
-    ];
+if (file_exists('BlogRafaelTexto.txt')) {
+    echo $conteudo = file_get_contents('BlogRafaelTexto.txt');
+    echo json_encode($conteudo);
+} else {
+    echo "Nao";
 }
 
-echo json_encode($result);
+
+
+
+
+
+

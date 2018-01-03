@@ -9,6 +9,7 @@
     function validarToken () {
         if (!window.localStorage['token']) {
             window.location = 'BlogRafaelLogin.html';
+            console.log("logado");
             return;
         }
     }
@@ -24,8 +25,25 @@
     <span id="Alerta"></span>
 </div>
 <script>
+    var texto =  { title: "aaaa", text: "aaaa", author: "aaa" };
     function inserirTexto () {
-
+        $.ajax({
+            type: 'POST',
+            url: "BlogRafaelEditar.php",
+            data: {
+                title: $("#title").val(),
+                text: $("#text").val(),
+                author: $("author").val()
+            }
+        }).done(function(data) {
+            console.log("teste");
+            data = JSON.parse(data);
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+            console.log(data);
+        });
     }
 </script>
 

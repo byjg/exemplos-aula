@@ -5,11 +5,13 @@
     <title>Exercicio Blog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script>
-        function validarToken () {
-            if (!window.localStorage['token']) {
-                window.location = 'BlogRafaelLogin.html';
-                return;
-            }
+
+
+        window.localStorage['token'] = null
+        function VoltarTexto () {
+
+
+        }
 
         /*    $.ajax({
                 type: 'POST',
@@ -30,7 +32,7 @@
             });*/
         }
 
-        validarToken();
+        VoltarTexto();
 
     </script>
 
