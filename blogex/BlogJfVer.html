@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+<style>
+
+</style>
+
+<script>
+    var query = location.search.slice(1);
+    var partes = query.split('&');
+    var data = {};
+    partes.forEach(function (parte) {
+        var chaveValor = parte.split('=');
+        var chave = chaveValor[0];
+        var valor = chaveValor[1];
+        data[chave] = valor;
+    });
+
+    console.log(data); // Object {lang: "pt", page: "home"}
+</script>
+
+<body>
+<h1>Título</h1>
+<div> Materia a ser adicionada </div><br>
+<div>Autor: Nome do indivíduo  </div><br>
+
+<input type="button" onclick="location.href='BlogJfLogin.html';" value="Editar" />
+</body>
+</html>
