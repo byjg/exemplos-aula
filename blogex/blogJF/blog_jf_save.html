@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+
+
+<body>
+
+<form id="editarBlog" name="editarBlog" method="get">
+
+    Título:    <input type="text" id="titulo" name="titulo" /> <br/>
+    Conteúdo: <input type="text" id="conteudo" name="conteudo" /> <br/>
+
+    <input type="submit" id="btnenviar" name="btnenviar" value="Enviar" onclick="obterInformacoes()" />
+
+</form>
+
+
+</body>
+
+<script>
+    validarToken ();
+
+    function validarToken () {
+
+        var localToken = window.localStorage['token'];
+        if (!localToken) {
+            alert('Você não está autenticado');
+            window.location = 'blog_jf_login.html';
+            console.log('aaa');
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "blog_jf_login.php",
+            data: {
+                token: localtoken
+            }
+        }).done(function (data) {
+            data = JSON.parse(data);
+            if (data.error) {
+                alert(data.error);
+                window.location = 'blog_jf_view.html';
+                return;
+            }
+            console.log(data);
+        });
+    }
+
+    function obterInformacoes() {
+        var titulo = $('#titulo').val();
+        var conteudo = $('#conteudo').val();
+
+        $.ajax({
+            url: "/blog_jf_save.php?titulo=" + titulo + "&conteudo=" + conteudo,
+            success: function (data) {
+                $("#titulo").html(data.titulo);
+                $("#conteudo").html(data.conteudo);
+            }
+        });
+    }
+
+
+
+    </script>
+            <a href="blog_jf_view.html">Ver publicação</a>
+    </html>

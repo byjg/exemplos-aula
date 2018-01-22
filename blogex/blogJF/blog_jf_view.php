@@ -11,6 +11,7 @@ if ($_REQUEST['token'] === 'meutoken') {
 
 }
 
+$extrair = file_get_contents("InfoBlogJF.txt");
+header("Content-Type: application/json");
 
-
-echo json_encode($result);
+echo $extrair;

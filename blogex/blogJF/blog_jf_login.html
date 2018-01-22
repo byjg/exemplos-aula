@@ -5,12 +5,19 @@
     <title>Title</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 </head>
+
+<body>
+Usuário: <input id="usuario" type="text" name="usuario" placeholder="Insira seu Usuário"> <br>
+Senha:   <input id="senha" type="password" name="senha" placeholder="Insira sua Senha"><br>
+<input id="logar" type="button" name="botao" value="Logar" onclick="login()">
+</body>
+
 <script>
 
     function login () {
         $.ajax({
         type: 'POST',
-        url: "BlogJfLogin.php",
+        url: "blog_jf_login.php",
         data: {
             usuario: $("#usuario").val(),
             senha: $("#senha").val(),
@@ -23,7 +30,7 @@
         }
         window.localStorage['token'] = data.authenticated;
         console.log(data);
-        window.location = 'BlogJfEditar.html';
+        window.location = 'blog_jf_save.html';
     });
     }
 
@@ -32,11 +39,4 @@
 
 </script>
 
-
-
-<body>
-Usuário: <input id="usuario" type="text" name="usuario" placeholder="Insira seu Usuário"> <br>
-Senha:   <input id="senha" type="password" name="senha" placeholder="Insira sua Senha"><br>
-<input id="logar" type="button" name="botao" value="Logar" onclick="login()">
-</body>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+<style>
+
+</style>
+<body>
+
+<h1 id="titulo"></h1>
+<div id="conteudo"></div><br>
+<div id="autor"></div><br>
+
+<input type="button" onclick="location.href='blog_jf_login.html';" value="Editar" />
+</body>
+
+<script>
+    function obterInformacoes() {
+
+        $.ajax({
+            type: "get",
+            url: "/blog_jf_view.php",
+            success: function (data) {
+                $("#titulo").html(data.titulo);
+                $("#conteudo").html(data.conteudo);
+            }
+        });
+    }
+    obterInformacoes();
+
+</script>
+
+
+</html>
