@@ -11,7 +11,8 @@ $blog = [
 header("Content-Type: application/json");
 echo json_encode($blog);
 
-file_put_contents("InfoBlogJF.txt", json_encode($blog));
+file_put_contents("$titulo.txt", json_encode($blog));
+
 
 
 //$titulo = file_get_contents("TituloJF.txt");
